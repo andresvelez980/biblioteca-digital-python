@@ -23,3 +23,9 @@ class Usuario:
         self.nombre = nombre
         self.limite_prestamos = limite_prestamos
         self.prestamos = []
+
+    def puede_prestar(self):
+        return len(self.prestamos) < self.limite_prestamos
+
+    def __str__(self):
+        return f"[{self.id_usuario}] {self.nombre} | Préstamos: {len(self.prestamos)}/{self.limite_prestamos}"
