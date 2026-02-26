@@ -16,3 +16,10 @@ class Libro:
     def __str__(self):
         estado = "Prestado" if self.prestado else "Disponible"
         return f"[{self.id_libro}] {self.titulo} - {self.autor} ({self.anio}) | {estado}"
+
+class Usuario:
+    def __init__(self, id_usuario, nombre, limite_prestamos=2):
+        self.id_usuario = id_usuario
+        self.nombre = nombre
+        self.limite_prestamos = limite_prestamos
+        self.prestamos = []
