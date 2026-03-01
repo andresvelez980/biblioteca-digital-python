@@ -29,3 +29,20 @@ class Usuario:
 
     def __str__(self):
         return f"[{self.id_usuario}] {self.nombre} | Préstamos: {len(self.prestamos)}/{self.limite_prestamos}"
+
+class Biblioteca:
+    def __init__(self):
+        self.catalogo = {}
+        self.usuarios = {}
+        self.historial_prestamos = {}
+
+    def registrar_libro(self, libro):
+        if libro.id_libro in self.catalogo:
+            print("El libro ya está registrado.")
+        else:
+            self.catalogo[libro.id_libro] = libro
+            print("Libro registrado correctamente.")
+
+    def registrar_usuario(self, usuario):
+        self.usuarios[usuario.id_usuario] = usuario
+
