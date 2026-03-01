@@ -46,3 +46,53 @@ class Biblioteca:
     def registrar_usuario(self, usuario):
         self.usuarios[usuario.id_usuario] = usuario
 
+    def prestar(self, id_usuario, id_libro):
+        if id_usuario not in self.usuarios or id_libro not in self.catalogo:
+            print("Usuario o libro no existen.")
+            return
+
+        usuario = self.usuarios[id_usuario]
+        libro = self.catalogo[id_libro]
+
+        if libro.prestado:
+            print("El libro ya está prestado.")
+            return
+
+        if not usuario.puede_prestar():
+            print("El usuario alcanzó el límite de préstamos.")
+            return
+
+        libro.prestado = True
+        usuario.prestamos.append(libro)
+
+        evento = f"Usuario {usuario.nombre} prestó '{libro.titulo}'"
+        self.historial_prestamos.setdefault88(id_usuario, []).append(evento)
+
+        print("Préstamo realizado correctamente.")
+
+    def devolver(self, id_usuario, id_libro):
+        if id_usuario not in self.usuarios or id_libro not in self.catalogo:
+            print("Usuario o libro no existen.")
+            return
+
+        usuario = self.usuarios[id_usuario]
+        libro = self.catalogo[id_libro]
+
+        if not libro.prestado:
+            print("El libro no está prestado.")
+            return
+
+        if libro not in usuario.prestamos:
+            print("Este usuario no tiene ese libro.")
+            return
+
+        libro.prestado = False
+        usuario.prestamos.remove(libro)
+
+        evento = f"Usuario {usuario.nombre} devolvió '{libro.titulo}'"
+        self.historial_prestamos.setdefault(id_usuario, []).append(evento)
+
+        print("Devolución realizada correctamente.")
+
+
+
